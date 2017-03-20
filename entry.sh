@@ -15,6 +15,7 @@ die () {
 : ${RSYNC_SSL_CERT:="/etc/stunnel-rsync/client.crt"}
 : ${RSYNC_SSL_CA_CERT:="/etc/stunnel-rsync/ca.crt"}
 : ${RSYNC_SSL_KEY:="/etc/stunnel-rsync/client.key"}
+: ${RSYNC_ARGS:="-avHz --numeric-ids --delete"}
 
 # Sanity checks
 [ -z "${REMOTE}" ] && die "REMOTE not set"
@@ -24,4 +25,4 @@ die () {
 [ ! -f "${RSYNC_SSL_KEY}" ] && die "RSYNC_SSL_KEY does not exist set"
 
 set -x
-exec rsync.sh -av ${BACKUP_PATH} ${REMOTE}::${REMOTE_MODULE}
+exec rsync.sh ${RSYNC_ARGS} ${BACKUP_PATH} ${REMOTE}::${REMOTE_MODULE}
