@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+[ "$DEBUG" == 'true' ] && set -x
 
 : ${RSYNC_SSL_CERT:="/etc/stunnel-rsync/client.crt"}
 : ${RSYNC_SSL_CA_CERT:="/etc/stunnel-rsync/ca.crt"}
@@ -23,4 +24,5 @@ EOF
 
 trap 'rm -f "$CONFIG"' EXIT
 
+[ "$DEBUG" == 'true' ] && set +x
 stunnel $CONFIG

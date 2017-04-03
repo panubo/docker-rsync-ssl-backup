@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+[ "$DEBUG" == 'true' ] && set -x
 
 echo ">> Rsync SSL backup client started"
 
@@ -11,6 +12,7 @@ die () {
 
 # Defaults
 : ${BACKUP_PATH:="/mnt/data/"}
+: ${BACKUP_EXCLUDES:=""}
 : ${REMOTE_MODULE:="backup"}
 : ${RSYNC_SSL_CERT:="/etc/stunnel-rsync/client.crt"}
 : ${RSYNC_SSL_CA_CERT:="/etc/stunnel-rsync/ca.crt"}
@@ -24,5 +26,7 @@ die () {
 [ ! -f "${RSYNC_SSL_CA_CERT}" ] && die "RSYNC_SSL_CA_CERT does not exist set"
 [ ! -f "${RSYNC_SSL_KEY}" ] && die "RSYNC_SSL_KEY does not exist set"
 
-set -x
-exec rsync.sh ${RSYNC_ARGS} ${BACKUP_PATH} ${REMOTE}::${REMOTE_MODULE}
+# expand excludes
+eval 'for E in $BACKUP_EXCLUDES; do RSYNC_EXCLUDES="$RSYNC_EXCLUDES --exclude=${E}"; done'
+
+exec rsync.sh ${RSYNC_ARGS} ${RSYNC_EXCLUDES} ${BACKUP_PATH} ${REMOTE}::${REMOTE_MODULE}
