@@ -8,6 +8,7 @@ set -e
 : ${RSYNC_SSL_KEY:="/etc/stunnel-rsync/client.key"}
 : ${RSYNC_SSL_PORT:="8873"}
 : ${RSYNC_SSL_HOST:=${1}}
+: ${RSYNC_SSL_TIMEOUT:='0'}
 
 CONFIG=$(mktemp -t stunnel-rsync.XXXXXXXXXX)
 cat > $CONFIG <<EOF
@@ -19,7 +20,7 @@ key    = ${RSYNC_SSL_KEY}
 CAfile = ${RSYNC_SSL_CA_CERT}
 verify = 2
 debug = crit
-TIMEOUTclose = 0
+TIMEOUTclose = ${RSYNC_SSL_TIMEOUT}
 EOF
 
 trap 'rm -f "$CONFIG"' EXIT
