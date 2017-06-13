@@ -17,7 +17,7 @@ die () {
 : ${RSYNC_SSL_CERT:="/etc/stunnel-rsync/client.crt"}
 : ${RSYNC_SSL_CA_CERT:="/etc/stunnel-rsync/ca.crt"}
 : ${RSYNC_SSL_KEY:="/etc/stunnel-rsync/client.key"}
-: ${RSYNC_ARGS:="-avHz --numeric-ids --delete"}
+: ${RSYNC_ARGS:="-avHz --numeric-ids --delete --delete-excluded"}
 
 # Sanity checks
 [ -z "${REMOTE}" ] && die "REMOTE not set"
