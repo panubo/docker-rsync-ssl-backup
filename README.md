@@ -18,4 +18,4 @@ Minimal Alpine Linux Docker container with rsync (over SSL) backup capability.
 
 ## Status
 
-Testing in progress.
+Stable used in production.
