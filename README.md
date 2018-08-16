@@ -1,6 +1,6 @@
 # Docker Rsync over SSL Backup
 
-Minimal Alpine Linux Docker container with rsync (over SSL) backup capability.
+Minimal Alpine Linux Docker image with rsync (over SSL) backup capability.
 
 ## Environment Configuration
 
