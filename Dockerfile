@@ -1,10 +1,9 @@
 FROM alpine:3.5
 
-MAINTAINER Andrew Cutler <andrew@panubo.com>
+LABEL maintainer="Andrew Cutler <andrew@panubo.com>"
 
-RUN apk update && \
-    apk add bash stunnel rsync && \
-    rm -rf /var/cache/apk/*
+RUN apk --update --no-cache add bash stunnel rsync \
+  && rm -rf /var/cache/apk/*
 
 COPY rsync*.sh /usr/local/bin/
 
